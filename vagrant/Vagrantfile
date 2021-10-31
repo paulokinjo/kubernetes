@@ -1,0 +1,54 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+
+Vagrant.configure(2) do |config|
+
+  config.vm.provision "shell", path: "bootstrap.sh"
+
+  config.vm.define "master" do |master|
+    master.vm.box = "ubuntu/focal64"
+    master.vm.hostname = "k8s-master"
+    master.vm.network "private_network", ip: "192.168.33.10"
+    master.vm.provider "virtualbox" do |v|
+      v.name = "k8s-master"
+      v.memory = 2048
+      v.cpus = 2      
+    end
+  #  master.vm.provision "shell", path: "bootstrap_master.sh"
+  end
+
+  config.vm.define "control" do |control|
+    control.vm.box = "tranphuquy19/ubuntu-20.04-desktop"
+    control.vm.hostname = "k8s-control"
+    control.vm.network "private_network", ip: "192.168.33.50"
+    control.vm.provider "virtualbox" do |v|
+      v.name = "k8s-control"
+      v.gui = true
+      v.memory = 2048
+      v.cpus = 2      
+    end
+  end
+
+  NodeCount = 2
+
+  # Kubernetes Worker Nodes
+  (1..NodeCount).each do |i|
+    config.vm.define "worker#{i}" do |workernode|
+      workernode.vm.box = "ubuntu/focal64"
+      workernode.vm.hostname = "worker#{i}"
+      workernode.vm.network "private_network", ip: "192.168.33.1#{i}"      
+      workernode.vm.provider "virtualbox" do |v|
+        v.name = "worker#{i}"
+        v.memory = 2048
+        v.cpus = 2        
+      end
+    end
+  end
+end
