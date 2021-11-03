@@ -44,6 +44,20 @@ nodes:
   ssh_cert_path: ""
   labels: {}
   taints: []
+- address: 192.168.33.13
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  hostname_override: worker3
+  user: vagrant
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: ~/.ssh/id_rsa
+  ssh_cert: ""
+  ssh_cert_path: ""
+  labels: {}
+  taints: []
 services:
   etcd:
     image: ""
