@@ -10,7 +10,7 @@ spec:
     repoUrl: https://github.com/paulokinjo/kubernetes
     targetRevision: HEAD
     path: argo/nana-demo
-  destinantion:
+  destination:
     server: https://kubernetes.default.svc
     namespace: demoapp
 
