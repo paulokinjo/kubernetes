@@ -40,6 +40,11 @@ Check label:
 kubectl describe namespace default
 ```
 
+### Istioctl Injection
+```
+kubectl -n ingress-nginx get deploy nginx-ingress-controller -o yaml | istioctl kube-inject -f - | kubectl apply -f -
+```
+
 ## 1.4 Check what's running
 
 ```
@@ -47,3 +52,5 @@ kubectl get all
 
 docker info
 ```
+
+
