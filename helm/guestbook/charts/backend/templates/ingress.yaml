@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-ingress
+spec:
+  rules:
+    - host: backend.cluster.local
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: backend
+              servicePort: 80
