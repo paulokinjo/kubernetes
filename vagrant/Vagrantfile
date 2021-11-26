@@ -15,26 +15,26 @@ Vagrant.configure(2) do |config|
   config.vm.define "master" do |master|
     master.vm.box = "ubuntu/focal64"
     master.vm.hostname = "master"
-    master.vm.network "private_network", ip: "192.168.33.10"
+    master.vm.network "private_network", ip: "192.168.56.10"
     master.vm.provider "virtualbox" do |v|
       v.name = "master"
       v.memory = 2048
       v.cpus = 2      
     end
-  #  master.vm.provision "shell", path: "bootstrap_master.sh"
+    master.vm.provision "shell", path: "bootstrap_master.sh"
   end
 
-  config.vm.define "control" do |control|
-    control.vm.box = "tranphuquy19/ubuntu-20.04-desktop"
-    control.vm.hostname = "control"
-    control.vm.network "private_network", ip: "192.168.33.50"
-    control.vm.provider "virtualbox" do |v|
-      v.name = "control"
-      v.gui = true
-      v.memory = 2048
-      v.cpus = 2      
-    end
-  end
+  # config.vm.define "control" do |control|
+  #   control.vm.box = "tranphuquy19/ubuntu-20.04-desktop"
+  #   control.vm.hostname = "control"
+  #   control.vm.network "private_network", ip: "192.168.33.50"
+  #   control.vm.provider "virtualbox" do |v|
+  #     v.name = "control"
+  #     v.gui = true
+  #     v.memory = 2048
+  #     v.cpus = 2      
+  #   end
+  # end
 
   NodeCount = 3
 
@@ -43,7 +43,7 @@ Vagrant.configure(2) do |config|
     config.vm.define "worker#{i}" do |workernode|
       workernode.vm.box = "ubuntu/focal64"
       workernode.vm.hostname = "worker#{i}"
-      workernode.vm.network "private_network", ip: "192.168.33.1#{i}"      
+      workernode.vm.network "private_network", ip: "192.168.56.1#{i}"      
       workernode.vm.provider "virtualbox" do |v|
         v.name = "worker#{i}"
         v.memory = 2048
