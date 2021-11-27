@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "commit":"git-cz"
+    "commit": "cz"
   },
   "repository": {
     "type": "git",
