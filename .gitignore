@@ -1,1 +1,3 @@
 .vagrant
+.husky
+node_modules
