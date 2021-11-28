@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: curl-pod
+  labels:
+    name: curl-pod
+spec:
+  containers:
+    - name: curl-pod
+      image: radial/busyboxplus:curl
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      command:
+        - sh
+        - -c
+        - while true; do sleep 1; done

@@ -1,3 +1,4 @@
 .vagrant
 .husky
 node_modules
+kustomize
