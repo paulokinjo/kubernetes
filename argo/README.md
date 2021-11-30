@@ -27,3 +27,21 @@ password: <secret>
 
 $ argocd account update-password
 ```
+
+# Security
+Some considerations that factor into the security of components include
+
+> Potential attack vectors
+
+> Worst-case consequences if the component becomes compromised > Who should be allowed access to the service
+
+> What permissions (RBAC) various users have
+
+> What protections can be put in place to mitigate risk
+
+
+# References
+<img src="./DeploymentStrategyConsiderations.png" />
+<img src="RollbackPipeline.png" />
+<img src="GitOpsCICD.png" />
+<img src="AccessLimitation.png" />
