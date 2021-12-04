@@ -32,3 +32,4 @@ implements key security principles, such as least privilege and separation of pr
 
 # CNI
 <img src="CNI.png" />
+<img src="k8sverbosity.png" />
