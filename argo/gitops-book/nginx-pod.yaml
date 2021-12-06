@@ -25,4 +25,4 @@ spec:
         - name: data
           mountPath: /usr/share/nginx/html
   securityContext:
-    runAsNonRoot: true
+    runAsNonRoot: false

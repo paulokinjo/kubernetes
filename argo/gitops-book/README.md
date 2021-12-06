@@ -23,4 +23,9 @@ Force update even if the image tag is the same
 $ kubectl rollout restart <deployment-name>
 ```
 
- 
+ # Decoding K8S Secrets
+ ```
+ $ kubectl get secret my-secret -o=jsonpath='{.data.password}' | base64 --decode
+ ```
+ <img src="secrettypes.png" /> 
+ <img src="secretstrategy.png" /> 
