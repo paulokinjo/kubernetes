@@ -1,13 +1,11 @@
 # Prometheus
 
 
-## Helm
+## NGINX password configuration
 ```
-$ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+$ apt install apache2-utils -y
 
-$ helm repo add stable https://charts.helm.sh/stable
+$ htpasswd -c auth admin
 
-$ helm repo update
-
-$ helm install prometheus prometheus-community/kube-prometheus-stack
+$ cat auth | base64
 ```

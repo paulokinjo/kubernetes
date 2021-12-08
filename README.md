@@ -33,3 +33,30 @@ implements key security principles, such as least privilege and separation of pr
 # CNI
 <img src="CNI.png" />
 <img src="k8sverbosity.png" />
+
+# Metrics Server
+```
+$ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.5.2/components.yaml
+```
+
+<code>
+Try adding --kubelet-insecure-tls
+
+kubectl edit deploy metrics-server -n kube-system
+
+      containers:
+      - args:
+        - --cert-dir=/tmp
+        - --secure-port=8448
+        - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+        - --kubelet-insecure-tls
+</code>
+
+# Dashboard
+```
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
+```
+
+<code>
+ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+</code>

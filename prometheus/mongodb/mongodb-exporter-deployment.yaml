@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-exporter-deployment
+  labels:
+    app: mongodb-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-exporter
+  template:
+    metadata:
+      labels:
+        app: mongodb-exporter
+    spec:
+      containers:
+        - args:
+            - --web.listen-address=:9216
+            - --collect.collection
+            - --collect.database
+            - --collect.indexusage
+            - --collect.topmetrics
+            - --collect.connpoolstats
+          env:
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  key: mongodb-uri
+                  name: mongodb-exporter-secret
+          image: ssheehy/mongodb-exporter:0.10.0
+          imagePullPolicy: IfNotPresent
+          name: mongodb-exporter
+          ports:
+            - containerPort: 9216
+              name: metrics
+              protocol: TCP

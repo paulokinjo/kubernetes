@@ -29,3 +29,8 @@ $ kubectl rollout restart <deployment-name>
  ```
  <img src="secrettypes.png" /> 
  <img src="secretstrategy.png" /> 
+
+ # Tracing
+ ```
+ $ kubectl apply -f https://raw.githubusercontent.com/gitopsbook/resources/master/chapter-08/jaeger/jaeger-all-in-one.yaml
+ ```

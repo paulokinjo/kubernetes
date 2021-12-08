@@ -97,6 +97,9 @@ data:
       - job_name: 'kube-state-metrics'
         static_configs:
           - targets: ['kube-state-metrics.kube-system.svc.cluster.local:8080']
+      - job_name: 'mongodb-pod'
+        static_configs:
+          - targets: ['mongodb-exporter-service.default.svc.cluster.local:9216']
       - job_name: 'kubernetes-cadvisor'
         scheme: https
         tls_config:
