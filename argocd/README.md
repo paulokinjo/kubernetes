@@ -29,6 +29,16 @@ password: <secret>
 $ argocd account update-password
 ```
 
+# ArgoCD Managing ArgoCD
+```
+$ argocd app create argocd \
+--repo https://github.com/paulokinjo/kubernetes.git \ --path argocd \
+--dest-server https://kubernetes.default.svc \ --dest-namespace argocd \
+--sync-policy auto
+application 'argocd' created
+
+```
+
 # Security
 Some considerations that factor into the security of components include
 
@@ -48,6 +58,9 @@ $ argocd app create prometheus \
   --dest-server https://kubernetes.default.svc \
   --dest-namespace monitoring
 ```
+
+# Github Auth Example
+<img src="github_auth.png" />
 
 # References
 <img src="./DeploymentStrategyConsiderations.png" />
