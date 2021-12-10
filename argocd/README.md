@@ -32,10 +32,11 @@ $ argocd account update-password
 # ArgoCD Managing ArgoCD
 ```
 $ argocd app create argocd \
---repo https://github.com/paulokinjo/kubernetes.git \ --path argocd \
---dest-server https://kubernetes.default.svc \ --dest-namespace argocd \
---sync-policy auto
-application 'argocd' created
+  --repo https://github.com/paulokinjo/kubernetes.git \
+  --path argocd \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace argocd \
+  --sync-policy auto
 
 ```
 
