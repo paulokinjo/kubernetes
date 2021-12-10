@@ -8,6 +8,7 @@ $ kubectl create namespace $ARGOCD_NAMESPACE
 
 $ kubectl apply -n $ARGOCD_NAMESPACE -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
+# For Node Port
 $ kubectl patch svc argocd-server -n $ARGOCD_NAMESPACE -p '{"spec": {"type": "NodePort"}}'
 
 $ kubectl -n $ARGOCD_NAMESPACE get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
@@ -39,6 +40,14 @@ Some considerations that factor into the security of components include
 
 > What protections can be put in place to mitigate risk
 
+# Creating an Application (CLI)
+```
+$ argocd app create prometheus \
+  --repo https://github.com/paulokinjo/prometheus \
+  --path ./k8s \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace monitoring
+```
 
 # References
 <img src="./DeploymentStrategyConsiderations.png" />
