@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/part-of: argocd
   namespace: argocd
 data:
-  url: https://argocd.192.168.56.10.nip.io:30873/
+  url: https://argocd.192.168.56.10.nip.io:32198/
 
   dex.config: |
     connectors:
