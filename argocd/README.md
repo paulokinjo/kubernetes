@@ -19,6 +19,7 @@ $ kubectl -n $ARGOCD_NAMESPACE get secret argocd-initial-admin-secret -o jsonpat
 ```shell
 $ curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
 
+$ sudo chown $(id -u):$(id -g) /usr/local/bin/argocd
 $ chmod +x /usr/local/bin/argocd
 
 $ argocd login <server-ip>:<port>
@@ -37,6 +38,8 @@ $ argocd app create argocd \
   --dest-server https://kubernetes.default.svc \
   --dest-namespace argocd \
   --sync-policy auto
+
+$ argocd app sync argocd
 
 ```
 
