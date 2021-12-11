@@ -6,7 +6,7 @@ resources:
   - argocd-application-prometheus-node-exporter.yaml
   - argocd-application-prometheus-alertmanager.yaml
   - argocd-application-grafana.yaml  
-  - sealed-secrets-controller.yaml
+  # - sealed-secrets-controller.yaml
 
 patches:
   # - target:

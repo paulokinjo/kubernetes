@@ -17,7 +17,7 @@ $ kubectl -n $ARGOCD_NAMESPACE get secret argocd-initial-admin-secret -o jsonpat
 
 ### Password Update
 ```shell
-$ curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+$ sudo curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
 
 $ sudo chown $(id -u):$(id -g) /usr/local/bin/argocd
 $ chmod +x /usr/local/bin/argocd
