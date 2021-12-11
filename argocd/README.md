@@ -45,7 +45,9 @@ $ argocd app sync argocd
 
 # Ingress Nginx
 ```
-# kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.0/deploy/static/provider/baremetal/deploy.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.0/deploy/static/provider/baremetal/deploy.yaml
+
+$ kubectl patch svc ingress-nginx-controller -n ingress-nginx -p '{"spec": {"ports": [{"appProtocol": "http","name": "http","nodePort": 32647,"port": 80,"protocol": "TCP","targetPort": "http"},{"appProtocol": "https","name": "https","nodePort": 30942,"port": 443,"protocol": "TCP","targetPort": "https"}]}}'
 ```
 
 # Security
