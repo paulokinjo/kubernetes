@@ -11,18 +11,18 @@ ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 Vagrant.configure(2) do |config|
   
   config.vm.provision "shell", path: "bootstrap.sh"
-
+  
   NodeCount = 1
 
   (1..NodeCount).each do |i|
 
-    config.vm.define "docker#{i}" do |docker|
-      docker.vm.box = "bento/ubuntu-20.04"
-      docker.vm.hostname = "docker#{i}"
-      docker.vm.network "private_network", ip: "192.168.56.2#{i}"
-      docker.vm.synced_folder ".", "/vagrant", type: "virtualbox"
-      docker.vm.provider "virtualbox" do |v|
-        v.name = "docker#{i}"
+    config.vm.define "kind#{i}" do |kind|
+      kind.vm.box = "bento/ubuntu-20.04"
+      kind.vm.hostname = "kind#{i}"
+      kind.vm.network "private_network", ip: "192.168.56.3#{i}"
+      kind.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+      kind.vm.provider "virtualbox" do |v|
+        v.name = "kind#{i}"
         v.gui = false
         v.memory = 4096
         v.cpus = 2      
