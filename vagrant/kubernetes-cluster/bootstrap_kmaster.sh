@@ -12,15 +12,15 @@ kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectca
 echo "[TASK 4] Generate and save cluster join command to /joincluster.sh"
 kubeadm token create --print-join-command > /joincluster.sh 2>/dev/null
 
-echo "[TASK 4]-[Master] Configure kubeconfig"
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+echo "[TASK 5] Configure kubeconfig"
+sudo -u vagrant mkdir -p /home/vagrant/.kube
+sudo cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
+sudo chown vagrant:1000 /home/vagrant/.kube/config
 
 echo "[TASK 6]-[Master] List all nodes"
-kubectl get nodes -o wide
+sudo -u vagrant kubectl get nodes -o wide
 
 source <(kubectl completion bash); # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
-echo "source <(kubectl completion bash)" >> ~/.bashrc; # add autocomplete permanently to your bash shell.
-echo "alias k=kubectl" >> ~/.bashrc; 
-echo "complete -F __start_kubectl k" >> ~/.bashrc;
+echo "source <(kubectl completion bash)" >> /home/vagrant/.bashrc; # add autocomplete permanently to your bash shell.
+echo "alias k=kubectl" >> /home/vagrant/.bashrc; 
+echo "complete -F __start_kubectl k" >> /home/vagrant/.bashrc;
