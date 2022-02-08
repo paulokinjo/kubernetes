@@ -60,3 +60,8 @@ $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0
 <code>
  http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 </code>
+
+# Prompt:
+```
+$ export PS1='❯❯❯  '
+```
