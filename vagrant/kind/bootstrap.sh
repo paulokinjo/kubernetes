@@ -45,3 +45,6 @@ echo "source <(kubectl completion bash)" >> /home/vagrant/.bashrc; # add autocom
 echo "alias k=kubectl" >> /home/vagrant/.bashrc; 
 echo "complete -F __start_kubectl k" >> /home/vagrant/.bashrc;
 
+sudo apt install bash-completion
+source /home/vagrant/.bashrc
+
