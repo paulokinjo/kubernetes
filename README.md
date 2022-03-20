@@ -57,6 +57,16 @@ kubectl edit deploy metrics-server -n kube-system
 $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
 ```
 
+Create a Cluster Admin service account
+
+kubectl create serviceaccount dashboard -n default
+Add the cluster binding rules to your dashboard account
+
+kubectl create clusterrolebinding dashboard-admin -n default --clusterrole=cluster-admin --serviceaccount=default:dashboard
+Get the secret token with this command
+
+kubectl get secret $(kubectl get serviceaccount dashboard -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
+
 <code>
  http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 </code>
