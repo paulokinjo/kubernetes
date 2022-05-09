@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: CSINode
+metadata:
+  name: ip-10-0-0-205.us-west-2.compute.internal
+spec:
+  drivers: 
+    - allocatable:
+        count: 25
+      name: ebs.csi.aws.com
+      nodeID: i-0284ac0df4da1d584
+      topologyKeys:
+        - topology.ebs.csi.aws.com/zone
