@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alertmanager-server
+  labels:
+    app: alertmanager-server
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alertmanager-server
+  template:
+    metadata:
+      name: alertmanager-server
+      labels:
+        app: alertmanager-server
+    spec:
+      initContainers:
+      - args:
+        - sh
+        - -c
+        - cat /config.yml | envsubst > /etc/alertmanager/config.yml
+        image: bhgedigital/envsubst
+        name: envsubst
+        env:
+          - name: GMAIL_ACCOUNT
+            value: "gmail"
+          - name: GMAIL_AUTH_TOKEN
+            value: "gmail"
+        resources:
+            requests:
+              cpu: 100m
+              memory: 100M
+            limits:
+              cpu: 100m
+              memory: 100M
+        volumeMounts:
+          - mountPath: /etc/alertmanager
+            name: alertmanager-volume
+          - mountPath: /config.yml
+            subPath: config.yml
+            name: alertmanager-volume-configmap
+      containers:
+        - name: alertmanager-deployment
+          image: prom/alertmanager:v0.19.0          
+          args:
+            - "--config.file=/etc/alertmanager/config.yml"
+            - "--storage.path=/alertmanager"
+          ports:
+            - name: http
+              containerPort: 9093
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100M
+            limits:
+              cpu: 100m
+              memory: 100M
+          volumeMounts:            
+            - name: alertmanager-volume
+              mountPath: /etc/alertmanager
+      volumes:
+        - name: alertmanager-volume
+          emptyDir: {}
+        - name: alertmanager-volume-configmap
+          configMap:
+            name: alertmanager-configmap
+        

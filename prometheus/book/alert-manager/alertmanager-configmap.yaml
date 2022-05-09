@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-configmap
+  namespace: monitoring
+data:
+  config.yml: |-
+    global:
+    templates:
+      - '/etc/alertmanager/*.tmpl'
+    route:
+      receiver: alert-emailer
+      group_by: ['alertname', 'priority']
+      group_wait: 10s
+      repeat_interval: 30m
+      routes:
+        - receiver: slack_demo
+          match:
+            severity: slack
+          group_wait: 10s
+          repeat_interval: 1m
+    receivers:
+      - name: alert-emailer
+        email_configs:
+          - to: "${GMAIL_ACCOUNT}"
+            send_resolved: true
+            from: "${GMAIL_ACCOUNT}"
+            smarthost: smtp.gmail.com:465
+            require_tls: false
+            auth_username: "${GMAIL_ACCOUNT}"
+            auth_identity: "${GMAIL_ACCOUNT}"
+            auth_password: "${GMAIL_AUTH_TOKEN}"
+      - name: slack_demo
+        slack_configs:
+        - api_url: https://hooks.slack.com
+          channel: '#slack-demo'
