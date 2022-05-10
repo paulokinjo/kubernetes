@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: guestbook-guestbook-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: guestbook.frontend.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: guestbook-frontend
+            port: 
+              number: 80
+  - host: guestbook.backend.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: guestbook-backend
+            port:
+              number: 80
