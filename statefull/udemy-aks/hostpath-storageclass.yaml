@@ -1,0 +1,13 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: hostpath-premium-retain-sc
+provisioner: docker.io/hostpath
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+# mountOptions:
+#   - "--subdir /Users/paulo.kinjo/Documents/personal/kubernetes/statefull/udemy-aks"
+# parameters: # This is used for cloud providers
+#   storageaccounttype: Premium_LRS
+#   king: managed
