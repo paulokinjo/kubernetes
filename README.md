@@ -75,3 +75,52 @@ kubectl get secret $(kubectl get serviceaccount dashboard -o jsonpath="{.secrets
 ```
 $ export PS1='❯❯❯  '
 ```
+
+## Events
+```
+kubectl get events --sort-by='.metadata.creationTimestamp' --all-namespaces
+
+kubectl get events --field-selector type=Warning,reason=Failed
+```
+
+## Filtering
+Filter: ?()
+Filter Current Value: @.
+```
+kubectl get nodes \
+  -o jsonpath="{ .items[*].status.addresses[?(@.type =='InternalIP')].address }{'\n'}"
+```
+```
+kubectl get pods -A -o jsonpath="{ .items[*].metadata.name }{'\n'}" \
+  --sort-by=.metadata.creationTimestamp \
+  --output=custom-columns='NAME:metadata.name,CREATIONTIMESTAMP:metadata.creationTimestamp'
+```
+
+k logs -n kube-system metrics-server-64bfbb876-2dg8d --previous
+
+# print out a pod logs (https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#logs)
+kubectl logs etcd-docker-desktop -n kube-system --since=12h --timestamps
+
+
+# print the logs for the _previous_ instance of the container in a pod if it exists
+kubectl logs -p etcd-docker-desktop -n kube-system --since=2h --timestamps
+
+
+# check events (https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#describe)
+kubectl describe pod {pod_name} -n kube-system
+
+# look at the 'Events' at the end of the output
+# ..
+# Events:
+#   Type     Reason   Age                 From               Message
+#   ----     ------   ----                ----               -------
+#   Warning  BackOff  40m                 kubelet, gke-xx    Back-off restarting failed container
+# ..
+
+
+# observe all events (https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#get)
+kubectl get events -n kube-system --sort-by=.metadata.creationTimestamp
+
+
+# check logs, etc. in pod container (https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#exec)
+kubectl exec -it {pod_name} -n kube-system -- sh
